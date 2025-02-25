@@ -26,7 +26,7 @@ public class RabbitMqConfiguration {
 	private  String QUEUE2_NAME;
 	
 	@Value("${instance.queue.notify}")
-	private String Queue3Name;
+	private String QUEUE3_NAME;
 	
 	public static final String EXCHANGE_NAME1 = "my_fanout_exchange_sql_command";
 	
@@ -45,7 +45,7 @@ public class RabbitMqConfiguration {
     @PostConstruct
     public void init() {
         QUEUE2_NAME_PUBLIC = this.QUEUE2_NAME;
-        QUEUE3_NAME_PUBLIC = this.Queue3Name;
+        QUEUE3_NAME_PUBLIC = this.QUEUE3_NAME;
     }
 	
 	@Bean
@@ -71,7 +71,7 @@ public class RabbitMqConfiguration {
 	
 	@Bean
     public Queue failQueue() {
-        return new Queue(Queue3Name, true);
+        return new Queue(QUEUE3_NAME, true);
     }
 	
 	
