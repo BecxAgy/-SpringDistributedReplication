@@ -19,7 +19,7 @@ import jakarta.annotation.PostConstruct;
 @Configuration
 public class RabbitMqConfiguration {
 
-	@Value("${instance.queue.heartbeat.name}")
+
 	public static final String QUEUE1_NAME = "heart-beat-queue";
 	
 	@Value("${instance.queue.name}")
