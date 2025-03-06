@@ -21,24 +21,32 @@ public class RabbitMqCommandConsumer implements CommandConsumer {
 	public void processSqlCommand(String message) {
 		processSQL(message);
 	}
-	
+
 	private void processSQL(String message) {
-		System.out.println("Received SQL Command: " + message);
 		try {
-			if (message.trim().toUpperCase().startsWith("SELECT")) {
+			String trimmedMessage = message.trim().replaceAll("(?m)^\\s*--.*$", ""); // Remove comentários de linha
+			String firstWord = trimmedMessage.split("\\s+")[0].toUpperCase(); // Pega a primeira palavra real
+
+			if ("SELECT".equals(firstWord)) {
+				System.out.println("Executing SQL Command: " + message);
 				List<Map<String, Object>> results = jdbcTemplate.queryForList(message);
 
-
-	            for (Map<String, Object> row : results) {
-	                System.out.println(row);
-	            }
-	            return;
+				for (Map<String, Object> row : results) {
+					System.out.println(row);
+				}
+				return;
 			}
-			
+
+			// Se não for SELECT, impede execução de DDL ou comandos perigosos (opcional)
+			if (!List.of("INSERT", "UPDATE", "DELETE").contains(firstWord)) {
+				throw new IllegalArgumentException("Invalid SQL command: " + firstWord);
+			}
+
 			jdbcTemplate.execute(message);
 		} catch (Exception e) {
-			e.printStackTrace();;
+			e.printStackTrace();
 		}
 	}
+
 
 }

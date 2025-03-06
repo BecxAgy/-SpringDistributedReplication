@@ -22,6 +22,7 @@ public class RabbitMqCommandProducer implements CommandProducer {
 
 	@Override
 	public void sendSqlCommand(String sqlCommand) {
+		   System.out.println("Sending SQL Command: " + sqlCommand);
 			rabbitTemplate.convertAndSend(fanoutExchange.getName(), "", sqlCommand);
 	}
 

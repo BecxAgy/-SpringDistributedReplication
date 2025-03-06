@@ -18,6 +18,7 @@ public class SendHeartBeatService {
 
   @Scheduled(fixedRate = 10000)
   public void sendHeartbeat() {
+    System.out.println("Sending heartbeat " + instaceId);
     beatProducer.sendHeartbeat(instaceId);
   }
 

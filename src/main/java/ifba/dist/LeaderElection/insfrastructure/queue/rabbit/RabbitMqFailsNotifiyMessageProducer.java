@@ -19,6 +19,7 @@ public class RabbitMqFailsNotifiyMessageProducer implements FailsNotifyMessagePr
 
 	@Override
 	public void notifyFail(String message) {
+
 		rabbitTemplate.convertAndSend(fanoutExchange.getName(), "", message);
 	}
 

@@ -20,7 +20,6 @@ public class RabbitMqHeartBeatProducer implements HeartBeatProducer {
 
 	@Override
 	public void sendHeartbeat(String message) {
-			System.out.println("Replica " + message + " sending heartbeat");
 			rabbitTemplate.convertAndSend(RabbitMqConfiguration.QUEUE1_NAME, message);
 	}
 	
