@@ -39,6 +39,6 @@ POST http://localhost:8080/command
 ```
 📌 **O que acontece?**
 - O comando SQL é enviado ao **RabbitMQ**.
-- Todas as réplicas aplicam o `INSERT` no banco.
+- Todas as réplicas aplicam o `SELECT` no banco.
 
 
